@@ -6,8 +6,6 @@ import { getJobBatch } from "@/api/jobs/index";
 import { BaseDropDown } from "@/components/base/BaseDropDown";
 import * as XLSX from "xlsx";
 import { BaseModal } from "@/components/base/BaseModal";
-import { getUsersSearchAttempt } from "@/api/users";
-import axios from "axios";
 
 interface Option {
   id: number;
@@ -30,8 +28,8 @@ export default function Jobs() {
   });
   const [fileUrl, setFileUrl] = useState<string | undefined>(undefined);
   const [fileName, setFileName] = useState<string | undefined>(undefined);
-  const [tableData, setTableData] = useState<any[][]>([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [tableData, setTableData] = useState<(string | number)[][]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [errorDialog, setErrorDialog] = useState<{ message: string } | null>(
     null
   );
@@ -43,14 +41,17 @@ export default function Jobs() {
     setFilterData({ ...filterData, [buttonIdentifier]: selectedOption.label });
   };
 
-  const submitJobDetailsHandler = async (e: any) => {
+  const submitJobDetailsHandler = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
     try {
+      const form = e.target as HTMLFormElement;
       const jobDataResult = await getJobBatch({
         email: localStorage.getItem("verifiedEmail"),
-        keyword: e.target.keyword.value,
-        location: e.target.location.value,
+        keyword: form.keyword.value,
+        location: form.location.value,
         datePosted: filterData["Date Posted"],
         experienceLevel: filterData["Experience Level"],
         jobType: filterData["Job Type"],
@@ -63,7 +64,7 @@ export default function Jobs() {
       const url = URL.createObjectURL(blob);
 
       setFileUrl(url);
-      setFileName(`${e.target.keyword.value.split(" ").join("_")}_Jobs.xlsx`);
+      setFileName(`${form.keyword.value.split(" ").join("_")}_Jobs.xlsx`);
 
       const reader = new FileReader();
 
@@ -72,18 +73,22 @@ export default function Jobs() {
         const workbook = XLSX.read(data, { type: "array" });
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
-        const jsonData: any = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+        const jsonData: (string | number)[][] = XLSX.utils.sheet_to_json(
+          sheet,
+          { header: 1 }
+        );
         setTableData(jsonData);
       };
 
       reader.readAsArrayBuffer(blob);
-    } catch (error: any) {
-      if (axios.isAxiosError(error) && error.response) {
-        console.error("Bad Request:", error.response.data.message);
-        alert("Something went wrong, please try again later.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorDialog({
+          message: error.message ?? "",
+        });
       } else {
         setErrorDialog({
-          message: error.message,
+          message: "Something went wrong.",
         });
       }
     }

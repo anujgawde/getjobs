@@ -5,8 +5,6 @@ export const BaseModal = ({
   title,
   isOpen,
   onClose,
-  download,
-  fileName,
   children,
 }: {
   title: string;

@@ -19,7 +19,8 @@ export default function Verify() {
   return (
     <div className="flex items-center h-screen justify-center">
       <p className="text-2xl font-bold text-center">
-        Congratulation, you're verified. You'll be redirected in a few seconds!
+        Congratulation, you are verified. You will be redirected in a few
+        seconds!
       </p>
     </div>
   );

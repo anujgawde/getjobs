@@ -8,10 +8,11 @@ export default function Home() {
   const router = useRouter();
   const [isConfirmationSent, setIsConfirmationSent] = useState<boolean>(false);
 
-  const submitEmailHandler = async (e: any) => {
+  const submitEmailHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.target as HTMLFormElement;
     const userData = {
-      email: e.target.email.value,
+      email: form.email.value,
     };
     console.log(userData);
     const verificationResult = await sendVerificationEmail(userData);
