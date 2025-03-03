@@ -6,6 +6,7 @@ import { getJobBatch } from "@/api/jobs/index";
 import { BaseDropDown } from "@/components/base/BaseDropDown";
 import * as XLSX from "xlsx";
 import { BaseModal } from "@/components/base/BaseModal";
+import BaseLoader from "@/components/base/BaseLoader";
 
 interface Option {
   id: number;
@@ -33,6 +34,7 @@ export default function Jobs() {
   const [errorDialog, setErrorDialog] = useState<{ message: string } | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const selectSettingHandler = async (
     selectedOption: Option,
@@ -45,7 +47,7 @@ export default function Jobs() {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const form = e.target as HTMLFormElement;
       const jobDataResult = await getJobBatch({
@@ -92,6 +94,8 @@ export default function Jobs() {
         });
       }
     }
+
+    setIsLoading(false);
   };
 
   const checkUserValidityHandler = async () => {
@@ -147,8 +151,15 @@ export default function Jobs() {
             className="p-2 border-2 border-gray-300 rounded-lg w-1/2 focus:border-primary focus:ring-0 transition-colors"
             placeholder="Eg: United States"
           />
-          <button className="rounded-lg bg-primary text-white px-4 py-2 font-semibold h-[42px] hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors">
-            Fetch!
+          <button
+            disabled={isLoading}
+            className="rounded-lg bg-primary disabled:opacity-80 disabled:hover:bg-primary text-white px-4 py-2 font-semibold h-[42px] hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors"
+          >
+            {isLoading ? (
+              <BaseLoader color="white" size="6" borderSize="2" />
+            ) : (
+              <p>Fetch!</p>
+            )}
           </button>
         </div>
         <div className="flex space-x-4 w-full">
