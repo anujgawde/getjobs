@@ -1,9 +1,13 @@
 import React from "react";
 
-const BaseLoader = ({ color = "primary", size = "12", borderSize = "4" }) => {
+const BaseLoader = ({
+  colorClasses = "border-t-primary",
+  sizeClasses = "h-12 w-12",
+  borderClasses = "border-4 border-t-4",
+}) => {
   return (
     <div
-      className={`w-${size} h-${size} border-${borderSize} border-t-${borderSize} border-gray-200 border-t-${color} rounded-full animate-spin`}
+      className={`${sizeClasses} ${colorClasses} ${borderClasses} border-gray-200  rounded-full animate-spin`}
     ></div>
   );
 };
