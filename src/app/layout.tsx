@@ -68,7 +68,7 @@ export default function RootLayout({
               <BaseLoader size="12" color="primary" borderSize="4" />
               {!hasSeenPrompt && !serverReady && (
                 <p className="text-xs text-black font-medium text-center">
-                  To keep this service free, we're using a cost-efficient
+                  To keep this service free, we&apos;re using a cost-efficient
                   backend.
                   <br></br>
                   Load times may be slightly longer—thanks for your patience!

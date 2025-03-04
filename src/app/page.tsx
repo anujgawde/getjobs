@@ -1,9 +1,8 @@
 "use client";
 
 import { sendVerificationEmail } from "@/api/users/index";
-import { checkConnection } from "@/api/index";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BaseLoader from "@/components/base/BaseLoader";
 
 export default function Home() {
