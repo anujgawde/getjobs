@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GetJobs
+
+## Overview
+
+GetJobs is a job search tool that allows users to filter LinkedIn job postings based on specific criteria. It scrapes job listings from LinkedIn after retrieving data from their API and provides users with an Excel file containing job details. Users can preview the file before downloading it if they find it useful.
+
+## Table of Contents
+
+- How it works
+- Features
+  - Job Search and Filtering
+  - Excel Job Report
+  - User Verification
+- Technology Stack
+- Getting Started
+  - Prerequisites
+  - Installation
+- Future Enhancements
+- Contribution
+- Stay in Touch
+
+## How it works
+
+### Steps to Use
+
+1.  Enter an email on the home page.
+2.  A verification email is sent (currently from a private email `abc@gmail.com`).
+3.  Click on the verification link to be redirected to the jobs page.
+4.  Use the search bar to filter jobs based on:
+    - Keyword
+    - Location
+    - Experience Level
+    - Date Posted
+    - Salary
+    - Work Mode (Remote, Hybrid, On-Site)
+    - Job Type
+5.  Fetch job listings matching the applied filters.
+6.  Preview the Excel report.
+7.  If useful, download the file for further reference.
+
+## Features
+
+### Job Search and Filtering
+
+- Search for jobs based on specific criteria.
+- Apply multiple filters to refine job listings.
+
+### Excel Job Report
+
+- Generates an Excel file with job details:
+  - Job ID
+  - Job Title
+  - Company
+  - Location
+  - Date Posted
+  - Salary
+  - Job Link
+- Users can preview and download the report.
+
+### User Verification
+
+- Ensures access only to verified users via email confirmation.
+- Redirects verified users to the job search page.
+
+## Technology Stack
+
+- **Frontend**: Next.js
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js installed in your system.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.  Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    ```bash
+    git clone https://github.com/anujgawde/getjobs.git
+    ```
 
-## Learn More
+2.  Navigate to the project directory:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    cd getjobs
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3.  Install dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```bash
+    npm install
+    ```
 
-## Deploy on Vercel
+4.  Start the application:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    npm run dev
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Future Enhancements
+
+- Implementing authentication with OAuth providers.
+- Storing job searches for analytics and insights.
+- Adding support for multiple job listing platforms.
+
+## Contribution
+
+1.  Fork the repository.
+2.  Create a new branch for your feature:
+
+    ```bash
+    git checkout -b feature-name
+    ```
+
+3.  Commit your changes:
+
+    ```bash
+    git commit -m "Add feature description"
+    ```
+
+4.  Push to the branch:
+
+    ```bash
+    git push origin feature-name
+    ```
+
+5.  Open a pull request.
+
+## Stay in Touch
+
+- Author - [Anuj Gawde](https://x.com/axgdevv)
