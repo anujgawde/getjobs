@@ -65,7 +65,7 @@ export default function RootLayout({
             children
           ) : (
             <div className="h-screen w-full flex items-center justify-center flex-col space-y-2">
-              <BaseLoader />
+              <BaseLoader size="12" color="primary" borderSize="4" />
               {!hasSeenPrompt && !serverReady && (
                 <p className="text-xs text-black font-medium text-center">
                   To keep this service free, we're using a cost-efficient
