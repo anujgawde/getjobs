@@ -5,6 +5,7 @@ import "./globals.css";
 import { Suspense, useEffect, useState } from "react";
 import { checkConnection } from "@/api";
 import BaseLoader from "@/components/base/BaseLoader";
+import { usePathname } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const [loaderText, setLoaderText] = useState("");
+
   // The following setup is temporary, until the server code is shifted from render (deployed on a platform which doesnt spin off eg: aws ec2)
   const [serverReady, setServerReady] = useState<boolean>();
   const [hasSeenPrompt, setHasSeenPrompt] = useState<boolean>(false);
@@ -41,12 +45,16 @@ export default function RootLayout({
       if (!serverReady) {
         await checkConnectionHandler();
       }
-    }, 15000); // Polling every 15 seconds
+    }, 5000); // Polling every 5 seconds
 
     return () => clearInterval(intervalId);
   }, [serverReady]);
 
   useEffect(() => {
+    if (pathname === "/verify") {
+      setLoaderText("Verifying, please give it a few seconds!");
+    }
+
     if (!localStorage.getItem("hasSeenPrompt")) {
       localStorage.setItem("hasSeenPrompt", "true");
     } else {
@@ -65,7 +73,10 @@ export default function RootLayout({
             children
           ) : (
             <div className="h-screen w-full flex items-center justify-center flex-col space-y-4">
-              <BaseLoader />
+              <div className="flex justify-center flex-col items-center space-y-4">
+                <BaseLoader />
+                <p>{loaderText}</p>
+              </div>
               {!hasSeenPrompt && !serverReady && (
                 <p className="text-xs text-black font-medium text-center">
                   To keep this service free, we&apos;re using a cost-efficient

@@ -8,7 +8,7 @@ export default function Verify() {
   const router = useRouter();
   const verifyEmailHandler = async () => {
     const verifyEmailResult = await verifyEmail({
-      token: params.get("token"),
+      token: params.get("tid"),
     });
     localStorage.setItem("verifiedEmail", verifyEmailResult.email);
     router.push("/jobs");

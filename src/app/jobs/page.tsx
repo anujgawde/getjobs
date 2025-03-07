@@ -255,7 +255,6 @@ export default function Jobs() {
             <CustomButton
               onClick={() => {
                 if (!fileUrl) return;
-                setIsOpen(true);
               }}
               customClasses={`bg-excel-green text-white font-medium rounded-md`}
             >
